@@ -1,0 +1,92 @@
+html, body {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #EEE; 
+    background-color: #111;
+}
+
+div#container {
+    width:100%;
+}
+
+div#top {
+    position:fixed;
+    top:0px;
+    left:0px;
+    height:150px;
+    width:100%;
+    background-color: #555;
+    z-index:0;
+}
+
+div#topMargin {
+    position:fixed;
+    top:0px;
+    height:150px;
+
+    width:900px;
+    margin-left:-450px;
+    left:50%;
+}
+
+div#logo {
+    float:left;
+    width:250px;
+    height:150px;
+
+    background-color: #222;
+}
+
+div#topNav {
+    float:left;
+    width:350px;
+    height:150px;
+    margin-left: 25px;
+    margin-right: 25px;
+    background-color: #222;
+
+
+}
+
+div#userFeatures {
+    float:left;
+    width:250px;
+    height:150px;
+
+
+    text-align:right;
+
+    background-color: #222;
+}
+
+div#main {
+    position:absolute;
+    top:150px;
+
+    z-index:-1;
+
+    width:900px;
+    margin-left:-450px;
+    left:50%;
+}
+
+.image {
+    float:left;
+    position:relative;
+    width:275px;
+    height:275px;
+    background-color: #444;
+    margin:12px 12px 12px 12px;
+}
+
+A:link {
+    text-decoration: none;
+    color:inherit;}
+A:visited {
+    text-decoration: none;
+    color:inherit;}
+A:active {
+    text-decoration: none;
+    color:inherit;}
+A:hover {
+    text-decoration: none;
+    color: #FFF;}

@@ -1,0 +1,32 @@
+CREATE TABLE kuva (
+ kuvaID  SERIAL not null primary key,
+ kuvaNimi varchar(80),
+ julkaisuaika date not null,
+ kayttajaNimi varchar(16) not null,
+ foreign key(kayttajaNimi) references kayttaja(kayttajaNimi)
+);
+
+CREATE TABLE kuvanTagit (
+ tagNimi  varchar(80) not null primary key,
+ kuvaID int,
+ foreign key(kuvaID) references kuva(kuvaID)
+);
+
+CREATE TABLE kuvanKommentit (
+ kommenttiID int,
+ kuvaID int,
+ foreign key(kommenttiID) references kommentti (kommenttiID),
+ foreign key(kuvaID) references kuva(kuvaID)
+);
+
+CREATE TABLE kommentti (
+ kommenttiID SERIAL not null primary key,
+ kommenttiString varchar(160) not null,
+ kayttajaNimi varchar(16) not null,
+ foreign key(kayttajaNimi) references kayttaja(kayttajaNimi)
+);
+
+CREATE TABLE kayttaja (
+ kayttajaNimi varchar(16) not null primary key,
+ salasana varchar(16) not null
+);
