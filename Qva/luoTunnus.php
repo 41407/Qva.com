@@ -8,13 +8,11 @@
     <input type="submit" value="Luo tunnus"><br><br>
 </form>
 <?php
-
-if($_GET["toiminto"] === "tunnuksenLuontiEiOnnistunut") {
+if ($_GET["toiminto"] === "tunnuksenLuontiEiOnnistunut") {
     ?>
     <p>Ikävä kyllä näyttää siltä että valitsemasi käyttäjätunnus on jo jonkun toisen käytössä :(</p>
-<?php
+    <?php
 }
-
 ?>
-    <br>
-    <a href="tos.html" target="_BLANK">Käyttöehdot</a>
+<br>
+<a href="tos.html" target="_BLANK">Käyttöehdot</a>
