@@ -78,6 +78,11 @@ div#main {
     margin:12px 12px 12px 12px;
 }
 
+fieldset {
+    border: 0px;
+    background-color: transparent;
+}
+
 A:link {
     text-decoration: none;
     color:inherit;}

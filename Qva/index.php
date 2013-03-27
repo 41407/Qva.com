@@ -1,10 +1,5 @@
 <?php
 session_start();
-if (isset($_SESSION["kayttajanimi"])) {
-    echo("JES");
-} else {
-    echo("jahas");
-}
 $toiminto = $_GET["toiminto"];
 if ($toiminto === "kirjauduUlos") {
     unset($_SESSION["kayttajanimi"]);

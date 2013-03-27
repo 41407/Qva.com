@@ -8,7 +8,7 @@
     </div>
     <div id="userFeatures">
         <?php
-        if (false) {
+        if (isset($_SESSION["kayttajanimi"])) {
             // käyttäjä kirjautunut
             include("kayttajanToiminnot.php");
         } else {

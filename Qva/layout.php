@@ -6,14 +6,7 @@
     </div>
     <div id="main">
         <?php
-        $toiminto = $_GET["toiminto"];
-        if ($toiminto === "luoTunnus") {
-            include("luoTunnus.php");
-        } else if ($toiminto === "etusivu") {
-            include("etusivu.php");
-        } else {
-            include("etusivu.php");
-        }
+        include("paaikkuna.php");
         ?>
     </div>
 </div>
