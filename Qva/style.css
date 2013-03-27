@@ -16,6 +16,7 @@ div#top {
     width:100%;
     background-color: #555;
     z-index:0;
+
 }
 
 div#topMargin {
@@ -51,10 +52,9 @@ div#userFeatures {
     float:left;
     width:250px;
     height:150px;
-
-
     text-align:right;
-
+    line-height:22px;
+    vertical-align:bottom;
     background-color: #222;
 }
 
@@ -81,6 +81,8 @@ div#main {
 fieldset {
     border: 0px;
     background-color: transparent;
+    padding: 0px, 0px, 0px, 0px;
+    margin: 0px, 0px, 0px, 0px;
 }
 
 A:link {

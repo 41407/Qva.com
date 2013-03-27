@@ -1,6 +1,6 @@
 <div id="topMargin">
     <div id="logo">
-        <a href="/?toiminto=etusivu"><img src="img/qvalogo.png" alt="qva.com">
+        <a href="?toiminto=etusivu"><img src="img/qvalogo.png" alt="qva.com">
         </a>
     </div>
     <div id="topNav">

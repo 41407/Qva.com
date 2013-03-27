@@ -18,7 +18,8 @@ $kysely->execute();
 
 if ($kysely->fetch()) {
     $_SESSION["kayttajanimi"] = $tunnus;
-    header("Location: /?toiminto=kirjautuminenOnnistui");
+    header("Location: /qva/?toiminto=kirjautuminenOnnistui");
+    die();
 }
-header("Location: /?toiminto=kirjautuminenEiOnnistunut");
+header("Location: /qva/?toiminto=kirjautuminenEiOnnistunut");
 ?>

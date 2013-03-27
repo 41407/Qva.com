@@ -19,7 +19,7 @@ $kysely = $yhteys->prepare("SELECT * FROM kayttaja WHERE kayttajanimi = '" .
 $kysely->execute();
 
 if ($kysely->fetch()) {
-    header("Location: /?toiminto=tunnuksenLuontiEiOnnistunut");
+    header("Location: /qva/?toiminto=tunnuksenLuontiEiOnnistunut");
 }
 
 
@@ -29,5 +29,5 @@ $kysely = $yhteys->prepare("INSERT INTO kayttaja (kayttajanimi, salasana) VALUES
 $kysely->execute(array($tunnus, $salasana));
 
 $_SESSION["kayttajanimi"] = $tunnus;
-header("Location: /?toiminto=kirjautuminenOnnistui");
+header("Location: /qva/?toiminto=kirjautuminenOnnistui");
 ?>
