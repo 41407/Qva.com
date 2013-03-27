@@ -19,36 +19,44 @@ $id = $rivi["last_value"] + 1;
 
 $kuvanimi = $_POST["kuvanimi"];
 
-$sallitutPaatteet = array(/*"jpeg", */"jpg",/* "png"*/);
-$paate = end(explode(".", $_FILES["file"]["name"]));
-if ((($_FILES["file"]["type"] == "image/jpeg")
-        || ($_FILES["file"]["type"] == "image/jpg")
-       /* || ($_FILES["file"]["type"] == "image/png")*/)
-        && in_array($paate, $sallitutPaatteet)) {
+$sallitutPaatteet = array(/* "jpeg", */"jpg", /* "png" */);
+$kuvanPaate = end(explode(".", $_FILES["file"]["name"]));
+$paate = strtolower($kuvanPaate);
+if ((($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "image/jpg")
+        /* || ($_FILES["file"]["type"] == "image/png") */) && in_array($paate, $sallitutPaatteet)) {
     if ($_FILES["file"]["error"] > 0) {
         echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
     } else {
-        // POistan nämä jos jaxan
-        echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-        echo "Type: " . $_FILES["file"]["type"] . "<br>";
-        echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-        echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
-        echo "Username: " . $_SESSION["kayttajanimi"] . "<br>";
+        /*
+         * Debuggailuosastoa:
+         * 
+          echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+          echo "Type: " . $_FILES["file"]["type"] . "<br>";
+          echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+          echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
+          echo "Username: " . $_SESSION["kayttajanimi"] . "<br>";
+         */
 
+        $lopullinenTiedostonimi = $id . "." . $paate;
         // Siirretään temporaalinen tiedosto kansioonsa
         move_uploaded_file($_FILES["file"]["tmp_name"], "kuvat/" .
-                $id . "." . $paate);
+                $lopullinenTiedostonimi);
         echo "Stored in: " . "kuvat/" . $id . "." . $paate;
 
         // Lisätään kuva tietokantaan
         $kysely = $yhteys->prepare(
-                "INSERT INTO kuva (kuvanimi, julkaisuaika, kayttajanimi) " . "VALUES ('" . $kuvanimi . "', CURRENT_TIMESTAMP(0), '" . $_SESSION["kayttajanimi"] . "')");
+                "INSERT INTO kuva (kuvanimi, julkaisuaika, kayttajanimi) " .
+                "VALUES ('" . $kuvanimi . "', CURRENT_TIMESTAMP(0), '" .
+                $_SESSION["kayttajanimi"] . "')");
         $kysely->execute();
 
-        // annetaan www-datalle oikeudet kuvaan
-        shell_exec ( "setfacl -m u:www-data:r-- kuvat/" . $id . "." . $paate);
+        // tehdään pieni esikatselukuva ja annetaan www-datalle oikeudet kuvaan
+        // ja thumbnailiin
+        shell_exec("convert kuvat/" . $lopullinenTiedostonimi . " -resize 275x275^ kuvat/" . $id . "t." . $paate . " && " .
+                "setfacl -m u:www-data:r-- kuvat/" . $lopullinenTiedostonimi . " kuvat/" . $id . "t." . $paate);
+        header("Location: /qva/?toiminto=kuvanLisaysOnnistui");
     }
 } else {
-    echo "Invalid file";
+    header("Location: /qva/?toiminto=kuvanLisaysEpaonnistui");
 }
 ?>

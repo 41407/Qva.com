@@ -1,6 +1,10 @@
 <?php
-
-$toiminto = $_GET["toiminto"];
+if (isset($_GET['toiminto'])) {
+    $toiminto = $_GET["toiminto"];
+} else {
+    include("etusivu.php");
+    die();
+}
 switch ($toiminto) {
     case("luoTunnus"):
         include("luoTunnus.php");
@@ -14,8 +18,17 @@ switch ($toiminto) {
     case("lisaaKuva"):
         include("lisaaKuva.php");
         break;
+    case("kuvanLisaysEpaonnistui"):
+        include("lisaaKuva.php");
+        break;
+    case("kuvanLisaysOnnistui"):
+        include("etusivu.php"); // TODO
+        break;
     case("omatKuvat"):
-        include("etusivu.php"); //implementioi haku
+        include("etusivu.php"); //TODO
+        break;
+    case("kuva"):
+        include("kuvasivu.php");
         break;
     default:
         include("etusivu.php");

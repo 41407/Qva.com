@@ -1,8 +1,9 @@
 <?php
 session_start();
-$toiminto = $_GET["toiminto"];
-if ($toiminto === "kirjauduUlos") {
-    unset($_SESSION["kayttajanimi"]);
+if (isset($_GET['toiminto'])) {
+    if ($_GET["toiminto"] === "kirjauduUlos") {
+        unset($_SESSION["kayttajanimi"]);
+    }
 }
 ?>
 

@@ -12,11 +12,14 @@ $kysely = $yhteys->prepare(
 $kysely->execute();
 
 while ($currentKuva = $kysely->fetch()) {
+    echo '<a href="?toiminto=kuva';
+    echo '&kuvaid=' . $currentKuva["kuvaid"] . '">';
     echo '<div ';
     echo 'class="image" ';
-    echo 'style="background-image:url(' . "'kuvat/" . $currentKuva["kuvaid"] . '.jpg'."'". ')"';
+    echo 'style="background-image:url(' . "'kuvat/" . $currentKuva["kuvaid"] . "t". '.jpg'."'". ')"';
     echo '>';
     echo '</div>';
+    echo '</a>';
     echo("\n");
 }
 ?>
