@@ -12,7 +12,7 @@ div#top {
     position:fixed;
     top:0px;
     left:0px;
-    height:150px;
+    height:120px;
     width:100%;
     background-color: #555;
     z-index:0;
@@ -22,7 +22,7 @@ div#top {
 div#topMargin {
     position:fixed;
     top:0px;
-    height:150px;
+    height:120px;
 
     width:900px;
     margin-left:-450px;
@@ -32,7 +32,7 @@ div#topMargin {
 div#logo {
     float:left;
     width:250px;
-    height:150px;
+    height:120px;
 
     background-color: #222;
 }
@@ -40,7 +40,7 @@ div#logo {
 div#topNav {
     float:left;
     width:350px;
-    height:150px;
+    height:120px;
     margin-left: 25px;
     margin-right: 25px;
     background-color: #222;
@@ -51,7 +51,7 @@ div#topNav {
 div#userFeatures {
     float:left;
     width:250px;
-    height:150px;
+    height:120px;
     text-align:right;
     line-height:22px;
     vertical-align:bottom;
@@ -60,7 +60,7 @@ div#userFeatures {
 
 div#main {
     position:absolute;
-    top:175px;
+    top:150px;
 
     z-index:-1;
 
@@ -80,6 +80,10 @@ div#lightbox {
     background-position:center; 
     width:100%;
     height:100%;
+}
+
+.photoInfo {
+    line-height: 0px;
 }
 
 .image {

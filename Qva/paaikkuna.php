@@ -30,6 +30,9 @@ switch ($toiminto) {
     case("kuva"):
         include("kuvasivu.php");
         break;
+    case("hakuNimenPerusteella"):
+        include("hakuNimenPerusteella.php");
+        break;
     default:
         include("etusivu.php");
 }
