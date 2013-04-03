@@ -25,13 +25,22 @@ switch ($toiminto) {
         include("etusivu.php"); // TODO
         break;
     case("omatKuvat"):
-        include("etusivu.php"); //TODO
+        include("etusivu.php");
         break;
     case("kuva"):
         include("kuvasivu.php");
         break;
     case("hakuNimenPerusteella"):
         include("hakuNimenPerusteella.php");
+        break;
+    case("hakutoiminto"):
+        include("hakutoiminto.php");
+        break;
+    case("kayttajat"):
+        include("kayttajat.php");
+        break;
+    case("tagit"):
+        include("tagit.php"); // TODO
         break;
     default:
         include("etusivu.php");

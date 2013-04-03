@@ -1,10 +1,12 @@
 <div id="topMargin">
-    <div id="logo">
-        <a href="?toiminto=etusivu"><img src="img/qvalogo.png" alt="qva.com">
-        </a>
-    </div>
+    <a href="?toiminto=etusivu">
+        <div id="logo">
+        </div>
+    </a>
     <div id="topNav">
-        linkki jee jaa joo
+        <?php
+            include("navigaatiopaneeli.php");
+        ?>
     </div>
     <div id="userFeatures">
         <?php

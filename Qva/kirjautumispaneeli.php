@@ -1,11 +1,9 @@
-<form action="kirjautumislogiikka.php" method="post">
-    Tunnus:
-    <input type="text" name="tunnus" maxlength="16" size="16"> <br>
-    Salasana:
-    <input type="password" name="salasana" maxlength="16" size="16"> <br>
-    <input type="submit" value="Kirjaudu">
-</form>
-<a href="?toiminto=luoTunnus">Luo uusi tunnus</a><br>
+
+    <form action="kirjautumislogiikka.php" method="post">
+        <input type="text" name="tunnus" value="Käyttäjätunnus" maxlength="16" size="16">
+        <input type="password" name="salasana" value="salasana" maxlength="16" size="16">
+        <input type="submit" value="Kirjaudu">
+    </form>
 <?php
 if ($_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
     ?>
@@ -13,3 +11,13 @@ if ($_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
     <?php
 }
 ?>
+    <a href="?toiminto=luoTunnus">Luo uusi tunnus<?php
+if ($_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
+    echo'?</a>';
+}
+else {
+    echo'</a>';
+}
+?>
+
+
