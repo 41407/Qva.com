@@ -15,7 +15,7 @@ $kuvantagit = $_POST["kuvantagit"];
 /**
  * Kuvan otsikko, kuvateksti tietokantaan
  */
-$kysely = $yhteys->prepare("UPDATE kuva SET kuvanimi='" . $kuvanimi . "', kuvateksti='" . $kuvateksti . "'");
+$kysely = $yhteys->prepare("UPDATE kuva SET kuvanimi='" . $kuvanimi . "', kuvateksti='" . $kuvateksti . "' WHERE kuvaid = ". $kuvaid);
 $kysely->execute();
 
 /**

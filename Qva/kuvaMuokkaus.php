@@ -36,15 +36,15 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     Kuvan tägit: <br>
     <input type="text" name="kuvantagit" value="<?php
-           $kysely = $yhteys->prepare(
-                   "SELECT tagnimi
+    $kysely = $yhteys->prepare(
+            "SELECT tagnimi
     FROM kuva, kuvantagit
     WHERE kuva.kuvaid = " . $_GET["kuvaid"] . " AND
     kuva.kuvaid=kuvantagit.kuvaid");
-           $kysely->execute();
-           while ($currentTag = $kysely->fetch()) {
-               echo($currentTag["tagnimi"] . ', ');
-           }
+    $kysely->execute();
+    while ($currentTag = $kysely->fetch()) {
+        echo($currentTag["tagnimi"] . ', ');
+    }
     ?>" size ="80"> <br>
     Erottele tägit pilkulla, esimerkiksi "maisema, yö, koira, kalifi"
     <br><br>

@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_GET['toiminto'])) {
     $toiminto = $_GET["toiminto"];
 } else {
@@ -22,7 +23,7 @@ switch ($toiminto) {
         include("lisaaKuva.php");
         break;
     case("kuvanLisaysOnnistui"):
-        include("etusivu.php"); // TODO
+        include("etusivu.php"); // TODO?
         break;
     case("omatKuvat"):
         include("etusivu.php");
@@ -32,6 +33,9 @@ switch ($toiminto) {
         break;
     case("hakuNimenPerusteella"):
         include("hakuNimenPerusteella.php");
+        break;
+    case("hakuTaginPerusteella"):
+        include("hakuTaginPerusteella.php");
         break;
     case("hakutoiminto"):
         include("hakutoiminto.php");

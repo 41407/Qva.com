@@ -84,7 +84,7 @@ if ($_GET["kuvatoiminto"] != "muokkaaKuvaa") {
         if($i > 0) {
             echo', ';
         }
-        echo '<a href="?hakuTaginPerusteella&tag=' . $tagit["tagnimi"] . '">';
+        echo '<a href="?toiminto=hakuTaginPerusteella&tag=' . $tagit["tagnimi"] . '">';
         echo $tagit["tagnimi"];
         echo '</a>';
         $i++;
