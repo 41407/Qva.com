@@ -1,6 +1,8 @@
 <?php
+
 $kuvaid = $_GET["kuvaid"];
 $kuvatiedosto = $kuvaid . ".jpg";
+$toiminto = $_GET["kuvatoiminto"];
 
 try {
     $yhteys = new PDO("pgsql:host=localhost;dbname=jiji", "jiji", "argh");
@@ -8,17 +10,31 @@ try {
     die("VIRHE: " . $e->getMessage());
 }
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+/**
+ * Kuvan poistaminen
+ */
+if ($toiminto === "poistaKuva") {
+    $kysely = $yhteys->prepare("DELETE FROM kuva
+    WHERE kuvaid = " . $kuvaid);
+    $kysely->execute();
+    unlink("kuvat/" . $kuvaid . ".jpg");
+    unlink("kuvat/" . $kuvaid . "t" . ".jpg");
+    include("kuvaPoistettu.php");
+    die();
+}
 // Haetaan kuvan tiedot
 $kysely = $yhteys->prepare("SELECT * FROM kuva WHERE kuvaid = '" .
         $kuvaid . "'");
 $kysely->execute();
 $kuvanTiedot = $kysely->fetch();
-/*
-if($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
-    include("kuvaKayttajanToiminnot.php");
+
+
+
+
+if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
+    include("kuvasivuKayttajanToiminnot.php");
 }
-*/
+
 /**
  * Rintataan itse kuva
  */
@@ -48,5 +64,5 @@ if ($kuvanTiedot["kuvateksti"]) {
     echo '</p>';
 }
 echo '</div>';
-echo '<p style="color:#444; text-align:right">Lisätty ' . $kuvanTiedot["julkaisuaika"] .'.';
+echo '<p style="color:#444; text-align:right">Lisätty ' . $kuvanTiedot["julkaisuaika"] . '.';
 ?>
