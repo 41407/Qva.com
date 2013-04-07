@@ -7,7 +7,7 @@ try {
 }
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $kysely = $yhteys->prepare(
-        "select COUNT(kuvaid) from kuva where kayttajanimi = '". $_GET['avain'] ."'");
+        "select COUNT(kuvaid) from kuva where kayttajanimi = '" . $_GET['avain'] . "'");
 $kysely->execute();
 $summa = $kysely->fetch();
 
@@ -18,7 +18,18 @@ $kysely->execute();
 
 echo '<h1>';
 echo 'Käyttäjän ' . $_GET['avain'] . ' lisäämät kuvat</h1>';
-echo '<p>Löytyi yhteensä '. $summa["count"] . ' kuvaa.</p><br>';
+echo '<p>Löytyi ';
+if ($summa["count"] > 1) {
+    echo 'yhteensä ';
+}
+echo $summa["count"] . ' kuva';
+
+if ($summa["count"] > 1) {
+    echo 'a';
+}
+
+
+echo '.</p><br>';
 
 while ($currentKuva = $kysely->fetch()) {
     echo '<a href="?toiminto=kuva';

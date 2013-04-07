@@ -12,9 +12,10 @@ CREATE TABLE kuva (
 );
 
 CREATE TABLE kuvanTagit (
- tagNimi  varchar(80) not null primary key,
- kuvaID int,
- foreign key(kuvaID) references kuva(kuvaID)
+ tagNimi  varchar(80) not null,
+ kuvaID int not null,
+ foreign key(kuvaID) references kuva(kuvaID),
+ primary key(tagNimi, kuvaID)
 );
 
 CREATE TABLE kommentti (

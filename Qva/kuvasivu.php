@@ -28,19 +28,20 @@ $kysely = $yhteys->prepare("SELECT * FROM kuva WHERE kuvaid = '" .
 $kysely->execute();
 $kuvanTiedot = $kysely->fetch();
 
-
-
-
-if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
-    include("kuvasivuKayttajanToiminnot.php");
-}
-
 /**
  * Rintataan itse kuva
  */
-echo '<a href="kuva.php?k=' . $kuvatiedosto . '" target="_BLANK">';
+// Kokeellinen lightbox featuuri
+// echo '<a href="kuva.php?k=' . $kuvatiedosto . '" target="_BLANK">';
 echo '<img src="kuvat/' . $kuvatiedosto . '">';
-echo '</a>';
+// echo '</a>';
+
+/**
+ * Kuvan lisänneen käyttäjän toiminnot
+ */
+if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
+    include("kuvasivuKayttajanToiminnot.php");
+}
 
 /**
  * Kuvan nimi, jos löytyy
@@ -65,4 +66,8 @@ if ($kuvanTiedot["kuvateksti"]) {
 }
 echo '</div>';
 echo '<p style="color:#444; text-align:right">Lisätty ' . $kuvanTiedot["julkaisuaika"] . '.';
+
+if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
+    include("kuvaMuokkaus.php");
+}
 ?>
