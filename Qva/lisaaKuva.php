@@ -6,8 +6,10 @@
       enctype="multipart/form-data">
     Kuvatiedosto:<br>
     <input type="file" name="file" id="file"><br><br>
-    Kuvan nimi/kuvateksti (voi jättää tyhjäksi):<br>
+    Kuvan otsikko (voi jättää tyhjäksi):<br>
     <input type="text" name="kuvanimi" size ="80" maxlength="80"> <br><br>
+    Kuvateksti (voi jättää tyhjäksi):<br>
+    <input type="text" name="kuvateksti" size ="300" maxlength="300"> <br><br>
     <input type="submit" name="submit" value="Submit">
 </form>
 <?php

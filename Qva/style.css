@@ -96,8 +96,15 @@ div#lightbox {
     height:100%;
 }
 
-.photoInfo {
+.photoInfo h1{
     line-height: 0px;
+}
+.photoInfo h2{
+    line-height: 0px;
+}
+.photoInfo p{
+    color: #AAA;
+    line-height: 100%;
 }
 
 .image {
