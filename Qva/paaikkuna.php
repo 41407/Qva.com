@@ -40,7 +40,7 @@ switch ($toiminto) {
         include("kayttajat.php");
         break;
     case("tagit"):
-        include("tagit.php"); // TODO
+        include("tagit.php");
         break;
     default:
         include("etusivu.php");

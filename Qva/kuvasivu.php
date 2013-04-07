@@ -73,5 +73,22 @@ if ($_GET["kuvatoiminto"] != "muokkaaKuvaa") {
     }
     echo '</div>';
     echo '<p style="color:#444; text-align:right">Lisätty ' . $kuvanTiedot["julkaisuaika"] . '.';
+    echo '<p class="tags">Tägit: ';
+
+    $kysely = $yhteys->prepare("SELECT tagnimi FROM kuvantagit WHERE kuvaid = " .
+            $kuvaid);
+    $kysely->execute();
+
+    $i = 0;
+    while ($tagit = $kysely->fetch()) {
+        if($i > 0) {
+            echo', ';
+        }
+        echo '<a href="?hakuTaginPerusteella&tag=' . $tagit["tagnimi"] . '">';
+        echo $tagit["tagnimi"];
+        echo '</a>';
+        $i++;
+    }
+    echo '</p>';
 }
 ?>
