@@ -7,14 +7,10 @@ try {
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 ?>
 
-
-
-
-
-
-
-<h1>Muokkaa kuvan tietoja</h1>
+<h1>Kuvan tietojen muokkaus</h1>
+<p>Mitkään kentistä eivät ole pakollisia.</p>
 <form action="kuvaMuokkausLogiikka.php" method="post">
+    <input type="hidden" name="kuvaid" value="<?php echo $_GET["kuvaid"]; ?>">
 
     Kuvan otsikko: <br>
     <input type="text" name="kuvanimi" value="<?php
@@ -39,7 +35,7 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     ?>" size ="80" maxlength="300"> <br><br>
 
     Kuvan tägit: <br>
-    <input type="text" name="tagit" value="<?php
+    <input type="text" name="kuvantagit" value="<?php
            $kysely = $yhteys->prepare(
                    "SELECT tagnimi
     FROM kuva, kuvantagit
@@ -52,6 +48,6 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     ?>" size ="80"> <br>
     Erottele tägit pilkulla, esimerkiksi "maisema, yö, koira, kalifi"
     <br><br>
-    <br><input type="submit" value="Tallenna"><br><br>
+    <br><input type="submit" value="Valmis"><br><br>
 </form>
 <br>

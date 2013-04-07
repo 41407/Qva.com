@@ -41,33 +41,37 @@ echo '<img src="kuvat/' . $kuvatiedosto . '">';
  */
 if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
     include("kuvasivuKayttajanToiminnot.php");
+
+    if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
+        include("kuvaMuokkaus.php");
+    }
 }
 
-/**
- * Kuvan nimi, jos löytyy
- */
-echo '<div class="photoInfo">';
+if ($_GET["kuvatoiminto"] != "muokkaaKuvaa") {
 
-echo '<a href="?toiminto=hakuNimenPerusteella&avain=' . $kuvanTiedot["kayttajanimi"] . '">';
-echo '<h2 style="text-align:right">©';
-echo $kuvanTiedot["kayttajanimi"];
-echo '</h2></a>';
 
-if ($kuvanTiedot["kuvanimi"]) {
-    echo '<h1>';
-    echo $kuvanTiedot["kuvanimi"];
-    echo '</h1>';
-}
+    /**
+     * Kuvan nimi, jos löytyy
+     */
+    echo '<div class="photoInfo">';
 
-if ($kuvanTiedot["kuvateksti"]) {
-    echo '<p>';
-    echo $kuvanTiedot["kuvateksti"];
-    echo '</p>';
-}
-echo '</div>';
-echo '<p style="color:#444; text-align:right">Lisätty ' . $kuvanTiedot["julkaisuaika"] . '.';
+    echo '<a href="?toiminto=hakuNimenPerusteella&avain=' . $kuvanTiedot["kayttajanimi"] . '">';
+    echo '<h2 style="text-align:right">©';
+    echo $kuvanTiedot["kayttajanimi"];
+    echo '</h2></a>';
 
-if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
-    include("kuvaMuokkaus.php");
+    if ($kuvanTiedot["kuvanimi"]) {
+        echo '<h1>';
+        echo $kuvanTiedot["kuvanimi"];
+        echo '</h1>';
+    }
+
+    if ($kuvanTiedot["kuvateksti"]) {
+        echo '<p>';
+        echo $kuvanTiedot["kuvateksti"];
+        echo '</p>';
+    }
+    echo '</div>';
+    echo '<p style="color:#444; text-align:right">Lisätty ' . $kuvanTiedot["julkaisuaika"] . '.';
 }
 ?>
