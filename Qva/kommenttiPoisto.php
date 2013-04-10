@@ -14,4 +14,5 @@ $kysely = $yhteys->prepare("DELETE FROM kommentti
     WHERE kommenttiid = " . $id);
 $kysely->execute();
 ?>
+
 <h1>Kommentti poistettu.</h1>
