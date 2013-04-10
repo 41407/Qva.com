@@ -1,5 +1,4 @@
 <?php
-
 $kuvaid = $_GET["kuvaid"];
 $kuvatiedosto = $kuvaid . ".jpg";
 $toiminto = $_GET["kuvatoiminto"];
@@ -51,7 +50,6 @@ if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
 /**
  * Ao. koodia ei suoriteta mikäli käyttäjä on klikannut kuvanmuokkauslinkkiä
  */
-
 echo '<div class="photoInfo">';
 
 
@@ -86,7 +84,7 @@ if ($kuvanTiedot["kuvateksti"]) {
  */
 echo '</div>';
 echo '<p style="color:#444; text-align:right">Lisätty ' .
-        $kuvanTiedot["julkaisuaika"] . '.';
+ $kuvanTiedot["julkaisuaika"] . '.';
 echo '<p class="tags">Tägit: ';
 
 /**
@@ -107,11 +105,17 @@ while ($tagit = $kysely->fetch()) {
     $i++;
 }
 echo '</p>';
+
+
+
+if (isset($_SESSION[kayttajanimi])) {
+    include("kuvaKommentoi.php");
+}
 ?>
 
 <div class="comment">
     <div class="commentInfo">
-        <a href="">Kalle Käyttäjä</a>
+        <a href="?toiminto=hakuNimenPerusteella&avain=jees">Kalle Käyttäjä</a>
         20. 5. 2013 kello neljä
     </div>
     <div class="commentBody">
@@ -122,7 +126,7 @@ echo '</p>';
 </div>
 <div class="comment">
     <div class="commentInfo">
-        <a href="">Ville Valokuvaaja</a>
+        <a href="?toiminto=hakuNimenPerusteella&avain=jees">Ville Valokuvaaja</a>
         2013-04-07 23:55:09
     </div>
     <div class="commentBody">

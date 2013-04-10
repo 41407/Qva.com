@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Haetaan kuvataulun indeksi
 try {
     $yhteys = new PDO("pgsql:host=localhost;dbname=jiji", "jiji", "argh");
 } catch (PDOException $e) {
