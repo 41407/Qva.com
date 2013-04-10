@@ -22,7 +22,6 @@ CREATE TABLE kommentti (
  kommenttiID SERIAL not null primary key,
  kommenttiString varchar(160) not null,
  kayttajaNimi varchar(16) not null,
- julkaisuaika timestamp(0) not null,
  foreign key(kayttajaNimi) references kayttaja(kayttajaNimi)
 );
 
