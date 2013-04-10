@@ -4,14 +4,14 @@
     <input type="submit" value="Kirjaudu">
 </form>
 <?php
-if ($_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
+if (isset($_GET["toiminto"]) && $_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
     ?>
     Väärä käyttäjätunnus tai salasana!
     <?php
 }
 ?>
 <a href="?toiminto=luoTunnus">Luo uusi tunnus<?php
-    if ($_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
+    if (isset($_GET["toiminto"]) && $_GET["toiminto"] === "kirjautuminenEiOnnistunut") {
         echo'?</a>';
     } else {
         echo'</a>';

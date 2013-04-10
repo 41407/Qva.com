@@ -123,6 +123,19 @@ div#lightbox {
     background-size:cover;
 }
 
+.comment {
+    margin-bottom: 16px; 
+}
+
+.commentInfo {
+    color:#444;
+}
+
+.commentBody {
+    margin-left: 12px;
+    color:#AAA;
+}
+
 fieldset {
     border: 0px;
     background-color: transparent;
