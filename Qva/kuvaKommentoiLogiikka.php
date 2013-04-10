@@ -16,4 +16,6 @@ $kysely = $yhteys->prepare(
         "VALUES (" . $kuvaid . ", '" . $tunnus . "', CURRENT_TIMESTAMP(0), '" .
         $kommentti . "')");
 $kysely->execute();
+header("Location: /qva/?toiminto=kuva&kuvaid=" . $kuvaid);
+die();
 ?>

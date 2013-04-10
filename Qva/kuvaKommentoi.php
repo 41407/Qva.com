@@ -8,10 +8,10 @@ if ($_GET["kuvatoiminto"] === "kommentoi") {
         <input type="text" name="kommentti" size ="80" maxlength="160">
         <input type="hidden" name="tunnus" value="<?php
     echo($_SESSION["kayttajanimi"]);
-    ?>"
+    ?>">
                <input type="hidden" name="kuvaid" value="<?php
            echo($_GET["kuvaid"]);
-    ?>"
+    ?>">
                <input type="submit" value="Kommentoi"><br><br>
     </form>
 
