@@ -111,25 +111,5 @@ echo '</p>';
 if (isset($_SESSION[kayttajanimi])) {
     include("kuvaKommentoi.php");
 }
+include("kuvanKommentit.php");
 ?>
-
-<div class="comment">
-    <div class="commentInfo">
-        <a href="?toiminto=hakuNimenPerusteella&avain=jees">Kalle Käyttäjä</a>
-        20. 5. 2013 kello neljä
-    </div>
-    <div class="commentBody">
-        KIVA KUVA! HEH! aasdlåP! arklasrklaskrgjl! ajglk! gahighasighij! ijasd!
-        aasdlåP! arklasrklaskrgjl! ajglk! gahighasighij! ijasd! asfkoer! palre!
-        aasdlåP! arklasrklaskrgjl! ajglk! gahighasighij! ijasd!
-    </div>    
-</div>
-<div class="comment">
-    <div class="commentInfo">
-        <a href="?toiminto=hakuNimenPerusteella&avain=jees">Ville Valokuvaaja</a>
-        2013-04-07 23:55:09
-    </div>
-    <div class="commentBody">
-        valo ja varjo tämä kuva ei noudata rule of turd's 
-    </div>    
-</div>
