@@ -1,11 +1,13 @@
 <?php
-$url = (!empty($_SERVER['HTTPS'])) ? "https://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] : "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+$url = (!empty($_SERVER['HTTPS'])) ? "https://" . $_SERVER['SERVER_NAME'] .
+        $_SERVER['REQUEST_URI'] : "http://" . $_SERVER['SERVER_NAME'] .
+        $_SERVER['REQUEST_URI'];
 
 if ($_GET["kuvatoiminto"] === "kommentoi") {
     ?>
 
     <form action="kuvaKommentoiLogiikka.php" method="post">
-        <input type="text" name="kommentti" size ="80" maxlength="160">
+        <input type="text" name="kommentti" size ="100" maxlength="160">
         <input type="hidden" name="tunnus" value="<?php
     echo($_SESSION["kayttajanimi"]);
     ?>">

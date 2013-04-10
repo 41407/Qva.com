@@ -46,6 +46,9 @@ switch ($toiminto) {
     case("tagit"):
         include("tagit.php");
         break;
+    case("poistaKommentti"):
+        include("kommenttiPoisto.php");
+        break;
     default:
         include("etusivu.php");
 }

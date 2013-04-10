@@ -1,6 +1,7 @@
 
 
 <?php
+
 try {
     $yhteys = new PDO("pgsql:host=localhost;dbname=jiji", "jiji", "argh");
 } catch (PDOException $e) {
@@ -10,8 +11,9 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
 $kysely = $yhteys->prepare(
-        "select kommenttistring as kommentti, kayttajanimi as tunnus, julkaisuaika as aika" .
-        " from kommentti where kuvaid=" . $kuvaid . " order by aika desc");
+        "select kommenttistring as kommentti, kayttajanimi as tunnus, " .
+        "julkaisuaika as aika, kommenttiid as id " .
+        "from kommentti where kuvaid=" . $kuvaid . " order by aika desc");
 $kysely->execute();
 
 $i = 0;
@@ -21,7 +23,14 @@ while ($kommentti = $kysely->fetch()) {
     echo '<a href="?toiminto=hakuNimenPerusteella&avain=' . $kommentti["tunnus"] . '">';
     echo $kommentti["tunnus"];
     echo '</a> ';
-    echo $kommentti["aika"];
+    if (isset($_SESSION["kayttajanimi"])) {
+        if ($kommentti["tunnus"] === $_SESSION["kayttajanimi"])
+            echo '- <a href="?toiminto=poistaKommentti&kommenttiID=' .
+            $kommentti["id"] . '"> Poista kommentti </a>';
+    }
+    
+    echo ' - ' .$kommentti["aika"];
+
     echo '</div>';
     echo '<div class="commentBody">';
     echo $kommentti["kommentti"];
