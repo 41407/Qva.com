@@ -1,4 +1,5 @@
 <?php
+
 $kuvaid = $_GET["kuvaid"];
 $kuvatiedosto = $kuvaid . ".jpg";
 $toiminto = $_GET["kuvatoiminto"];
@@ -40,15 +41,16 @@ echo '</a>';
 /**
  * Kuvan lisänneen käyttäjän toiminnot
  */
-if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
-    include("kuvasivuKayttajanToiminnot.php");
+if (isset($_SESSION[kayttajanimi])) {
+    if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
+        include("kuvasivuKayttajanToiminnot.php");
 
-    if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
-        include("kuvaMuokkaus.php");
-        die();
+        if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
+            include("kuvaMuokkaus.php");
+            die();
+        }
     }
 }
-
 /**
  * Ao. koodia ei suoriteta mikäli käyttäjä on klikannut kuvanmuokkauslinkkiä
  */
@@ -107,8 +109,6 @@ while ($tagit = $kysely->fetch()) {
     $i++;
 }
 echo '</p>';
-
-
 
 if (isset($_SESSION[kayttajanimi])) {
     include("kuvaKommentoi.php");
