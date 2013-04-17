@@ -14,7 +14,7 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $kysely = $yhteys->prepare("SELECT kayttajanimi FROM kayttaja");
 $kysely->execute();
 
-if ($nimi = $kysely->fetch()) {
+while ($nimi = $kysely->fetch()) {
     echo('<a href = "?toiminto=hakuNimenPerusteella&avain=' . $nimi[0] . '">');
     echo($nimi[0]);
     echo("</a><br>");

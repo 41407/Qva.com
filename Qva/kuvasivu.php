@@ -31,9 +31,11 @@ $kuvanTiedot = $kysely->fetch();
  * Rintataan itse kuva
  */
 // Kokeellinen lightbox featuuri
-// echo '<a href="kuva.php?k=' . $kuvatiedosto . '" target="_BLANK">';
+echo '<a href="kuva.php?k=' . $kuvatiedosto . '">';
+echo '<div class="imageframe">';
 echo '<img src="kuvat/' . $kuvatiedosto . '">';
-// echo '</a>';
+echo '</div>';
+echo '</a>';
 
 /**
  * Kuvan lisänneen käyttäjän toiminnot
