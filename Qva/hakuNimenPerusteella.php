@@ -17,17 +17,20 @@ $kysely = $yhteys->prepare(
 $kysely->execute();
 
 echo '<h1>';
-echo 'Käyttäjän ' . $_GET['avain'] . ' lisäämät kuvat</h1>';
-echo '<p>Löytyi ';
-if ($summa["count"] > 1) {
-    echo 'yhteensä ';
-}
-echo $summa["count"] . ' kuva';
+echo 'Käyttäjän ' . $_GET['avain'] . ' lisäämät kuvat</h1><p>';
+if ($summa["count"] > 0) {
+    echo 'Löytyi ';
+    if ($summa["count"] > 1) {
+        echo 'yhteensä ';
+    }
+    echo $summa["count"] . ' kuva';
 
-if ($summa["count"] > 1) {
-    echo 'a';
+    if ($summa["count"] != 1) {
+        echo 'a';
+    }
+} else {
+    echo 'Yhtään kuvaa ei löytynyt';
 }
-
 
 echo '.</p><br>';
 
