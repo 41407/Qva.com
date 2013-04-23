@@ -1,7 +1,7 @@
 <?php
 
 session_start();
- 
+
 try {
     $yhteys = new PDO("pgsql:host=localhost;dbname=jiji", "jiji", "argh");
 } catch (PDOException $e) {
@@ -70,7 +70,7 @@ if ((($_FILES["file"]["type"] == "image/jpeg") ||
                 "convert kuvat/" . $lopullinenTiedostonimi . " -resize 275x275^ kuvat/" . $id . "t.jpg" .
                 " && " .
                 "setfacl -m u:www-data:r-- kuvat/" . $lopullinenTiedostonimi . " kuvat/" . $id . "t.jpg" . " kuvat/" . $id . "s.jpg");
-        header("Location: /qva/?toiminto=kuvanLisaysOnnistui");
+        header("Location: /qva/?toiminto=kuva&kuvaid=" . $id);
         die();
     }
 } else {

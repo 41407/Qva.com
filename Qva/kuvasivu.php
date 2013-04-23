@@ -15,20 +15,29 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * Kuvan poistaminen
  */
 if ($toiminto === "poistaKuva") {
-    $kysely = $yhteys->prepare("DELETE FROM kuvantagit
-    WHERE kuvaid = ?");
+    $kysely = $yhteys->prepare("SELECT * FROM kuva WHERE kuvaid = ?");
     $kysely->execute(array($kuvaid));
-    $kysely = $yhteys->prepare("DELETE FROM kommentti
+    if ($kuvanTiedot = $kysely->fetch()) {
+        if (isset($_SESSION["kayttajanimi"])) {
+            if ($kuvanTiedot["kayttajanimi"] === $_SESSION["kayttajanimi"] ||
+                    $_SESSION["kayttajanimi"] === "admin") {
+                $kysely = $yhteys->prepare("DELETE FROM kuvantagit
     WHERE kuvaid = ?");
-    $kysely->execute(array($kuvaid));
-    $kysely = $yhteys->prepare("DELETE FROM kuva
+                $kysely->execute(array($kuvaid));
+                $kysely = $yhteys->prepare("DELETE FROM kommentti
     WHERE kuvaid = ?");
-    $kysely->execute(array($kuvaid));
-    unlink("kuvat/" . $kuvaid . ".jpg");
-    unlink("kuvat/" . $kuvaid . "s" . ".jpg");
-    unlink("kuvat/" . $kuvaid . "t" . ".jpg");
-    include("kuvaPoistettu.php");
-    die();
+                $kysely->execute(array($kuvaid));
+                $kysely = $yhteys->prepare("DELETE FROM kuva
+    WHERE kuvaid = ?");
+                $kysely->execute(array($kuvaid));
+                unlink("kuvat/" . $kuvaid . ".jpg");
+                unlink("kuvat/" . $kuvaid . "s" . ".jpg");
+                unlink("kuvat/" . $kuvaid . "t" . ".jpg");
+                include("kuvaPoistettu.php");
+                die();
+            }
+        }
+    }
 }
 // Haetaan kuvan tiedot
 $kysely = $yhteys->prepare("SELECT * FROM kuva WHERE kuvaid = ?");
