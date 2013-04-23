@@ -7,46 +7,17 @@ try {
 }
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
-$search = array ("'<script[^>]*?>.*?</script>'si",  // Strip out javascript
-                 "'<[/!]*?[^<>]*?>'si",          // Strip out HTML tags
-//                 "'([rn])[s]+'",                // Strip out white space
-                 "'&(quot|#34);'i",                // Replace HTML entities
-                 "'&(amp|#38);'i",
-                 "'&(lt|#60);'i",
-                 "'&(gt|#62);'i",
-                 "'&(nbsp|#160);'i",
-                 "'&(iexcl|#161);'i",
-                 "'&(cent|#162);'i",
-                 "'&(pound|#163);'i",
-                 "'&(copy|#169);'i",
-                 "'&#(d+);'e");                    // evaluate as php
- 
-$replace = array ("",
-                 "",
-                 "\1",
-                 "\"",
-                 "&",
-                 "<",
-                 ">",
-                 " ",
-                 chr(161),
-                 chr(162),
-                 chr(163),
-                 chr(169),
-                 "chr(\1)");
-
 $kuvaid = $_POST["kuvaid"];
-$kuvanimi = preg_replace($search, $replace, $_POST["kuvanimi"]);
-$kuvateksti = preg_replace($search, $replace, $_POST["kuvateksti"]);
-$kuvantagit = preg_replace($search, $replace, $_POST["kuvantagit"]);
+$kuvanimi = htmlspecialchars($_POST["kuvanimi"]);
+$kuvateksti = htmlspecialchars($_POST["kuvateksti"]);
+$kuvantagit = htmlspecialchars($_POST["kuvantagit"]);
 
 
 /**
  * Kuvan otsikko, kuvateksti tietokantaan
  */
-$kysely = $yhteys->prepare("UPDATE kuva SET kuvanimi='" . $kuvanimi . "', kuvateksti='" . $kuvateksti . "' WHERE kuvaid = ". $kuvaid);
-$kysely->execute();
+$kysely = $yhteys->prepare("UPDATE kuva SET kuvanimi=?, kuvateksti=? WHERE kuvaid = ?");
+$kysely->execute(array($kuvanimi, $kuvateksti, $kuvaid));
 
 /**
  * The fun part. Parsitaan tägit
@@ -57,7 +28,7 @@ $pilkotutTagit = explode(",", $kuvantagit);
  * Trimmataan tägien alut ja loput ja formatoidaan ne
  */
 $i = 0;
-while ($pilkotutTagit[$i]) {
+while (isset($pilkotutTagit[$i])) {
     // >lowercase
     $pilkotutTagit[$i] = strtolower($pilkotutTagit[$i]);
     // ekan spacebäärin trimmaus
@@ -74,16 +45,16 @@ while ($pilkotutTagit[$i]) {
 /**
  * Tägit tietokantaan erittiän rouhealla mekanismilla
  */
-$kysely = $yhteys->prepare("delete from kuvantagit where kuvaid =" . $kuvaid);
-$kysely->execute();
+$kysely = $yhteys->prepare("delete from kuvantagit where kuvaid = ?");
+$kysely->execute(array($kuvaid));
 $j = 0;
-while ($pilkotutTagit[$j]) {
+while (isset($pilkotutTagit[$j])) {
     $kysely = $yhteys->prepare("INSERT INTO kuvantagit(kuvaid, tagnimi)" .
-            "VALUES(" . $kuvaid . ", '" . $pilkotutTagit[$j] . "')");
-    $kysely->execute();
+            "VALUES(?, ?)");
+    $kysely->execute(array($kuvaid, $pilkotutTagit[$j]));
     $j++;
 }
 
-header("Location: /qva/?toiminto=kuva&kuvaid=".$kuvaid);
+header("Location: /qva/?toiminto=kuva&kuvaid=" . $kuvaid);
 die();
 ?>

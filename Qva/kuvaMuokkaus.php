@@ -17,8 +17,8 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $kysely = $yhteys->prepare(
             "SELECT kuvanimi
     FROM kuva
-    WHERE kuvaid = " . $_GET["kuvaid"]);
-    $kysely->execute();
+    WHERE kuvaid = ?");
+    $kysely->execute(array($_GET["kuvaid"]));
     $kuvanimi = $kysely->fetch();
     echo($kuvanimi["kuvanimi"]);
     ?>"  size ="80" maxlength="80"> <br><br>
@@ -28,8 +28,8 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $kysely = $yhteys->prepare(
             "SELECT kuvateksti
     FROM kuva
-    WHERE kuvaid = " . $_GET["kuvaid"]);
-    $kysely->execute();
+    WHERE kuvaid = ?");
+    $kysely->execute(array($_GET["kuvaid"]));
     $kuvateksti = $kysely->fetch();
     echo($kuvateksti["kuvateksti"]);
     ?>" size ="80" maxlength="300"> <br><br>
@@ -39,9 +39,9 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $kysely = $yhteys->prepare(
             "SELECT tagnimi
     FROM kuva, kuvantagit
-    WHERE kuva.kuvaid = " . $_GET["kuvaid"] . " AND
-    kuva.kuvaid=kuvantagit.kuvaid");
-    $kysely->execute();
+    WHERE kuva.kuvaid = ?
+    AND kuva.kuvaid=kuvantagit.kuvaid");
+    $kysely->execute(array($_GET["kuvaid"]));
     while ($currentTag = $kysely->fetch()) {
         echo($currentTag["tagnimi"] . ', ');
     }

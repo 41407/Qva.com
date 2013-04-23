@@ -9,12 +9,11 @@ try {
 }
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$tunnus = $_POST["tunnus"];
+$tunnus = htmlspecialchars($_POST["tunnus"]);
 $salasana = $_POST["salasana"];
 
-$kysely = $yhteys->prepare("SELECT * FROM kayttaja WHERE kayttajanimi = '" .
-        $tunnus . "' AND salasana = '" . $salasana . "'");
-$kysely->execute();
+$kysely = $yhteys->prepare("SELECT * FROM kayttaja WHERE kayttajanimi = ? AND salasana = ?");
+$kysely->execute(array($tunnus, $salasana));
 
 if ($kysely->fetch()) {
     $_SESSION["kayttajanimi"] = $tunnus;

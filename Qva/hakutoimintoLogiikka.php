@@ -60,6 +60,6 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $kysely = $yhteys->prepare("SELECT kuva.kuvaid
     FROM kuva, kuvantagit
-    WHERE kuva.kuvaid = kuvantagit.kuvaid AND " . $hakuehdot);
-$kysely->execute();
+    WHERE kuva.kuvaid = kuvantagit.kuvaid AND ?");
+$kysely->execute(array($hakuehdot));
 ?>

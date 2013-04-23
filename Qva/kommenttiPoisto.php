@@ -11,8 +11,10 @@ try {
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $kysely = $yhteys->prepare("DELETE FROM kommentti
-    WHERE kommenttiid = " . $id);
-$kysely->execute();
+    WHERE kommenttiid = ?");
+$kysely->execute(array($id));
 ?>
 
-<h1>Kommentti poistettu.</h1>
+<h1>Kommentti poistettu.</h1><p><script>
+    document.write('<a href="' + document.referrer + '">Takaisin</a>');
+</script></p>

@@ -24,13 +24,14 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * katsoa tarvitseeko laittaa linkin seuraavalle sivulle
  */
 $limitti = $kuviaPerSivu + 1;
+$offsetti = $sivu * $kuviaPerSivu;
 $kysely = $yhteys->prepare(
-        "SELECT kuvaid, kayttajanimi " .
-        "FROM kuva " .
-        "ORDER BY julkaisuaika DESC " .
-        "LIMIT " . $limitti . " " .
-        "OFFSET " . $sivu * $kuviaPerSivu);
-$kysely->execute();
+        "SELECT kuvaid, kayttajanimi
+        FROM kuva
+        ORDER BY julkaisuaika DESC
+        LIMIT ?
+        OFFSET ?");
+$kysely->execute(array($limitti, $offsetti));
 
 
 for ($index = 1; $index < $limitti; $index++) {

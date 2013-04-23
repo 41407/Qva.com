@@ -1,34 +1,6 @@
 <?php
 
 session_start();
-
-$search = array ("'<script[^>]*?>.*?</script>'si",  // Strip out javascript
-                 "'<[/!]*?[^<>]*?>'si",          // Strip out HTML tags
-//                 "'([rn])[s]+'",                // Strip out white space
-                 "'&(quot|#34);'i",                // Replace HTML entities
-                 "'&(amp|#38);'i",
-                 "'&(lt|#60);'i",
-                 "'&(gt|#62);'i",
-                 "'&(nbsp|#160);'i",
-                 "'&(iexcl|#161);'i",
-                 "'&(cent|#162);'i",
-                 "'&(pound|#163);'i",
-                 "'&(copy|#169);'i",
-                 "'&#(d+);'e");                    // evaluate as php
- 
-$replace = array ("",
-                 "",
-                 "\1",
-                 "\"",
-                 "&",
-                 "<",
-                 ">",
-                 " ",
-                 chr(161),
-                 chr(162),
-                 chr(163),
-                 chr(169),
-                 "chr(\1)");
  
 try {
     $yhteys = new PDO("pgsql:host=localhost;dbname=jiji", "jiji", "argh");
@@ -44,8 +16,8 @@ $kysely->execute();
 $rivi = $kysely->fetch();
 $id = $rivi["last_value"] + 1;
 
-$kuvanimi = preg_replace($search, $replace, $_POST["kuvanimi"]);
-$kuvateksti = preg_replace($search, $replace, $_POST["kuvateksti"]);
+$kuvanimi = htmlspecialchars($_POST["kuvanimi"]);
+$kuvateksti = htmlspecialchars($_POST["kuvateksti"]);
 
 $sallitutPaatteet = array("jpeg", "jpg", "png");
 $kuvanPaate = end(explode(".", $_FILES["file"]["name"]));
@@ -75,9 +47,8 @@ if ((($_FILES["file"]["type"] == "image/jpeg") ||
         // Lisätään kuva tietokantaan
         $kysely = $yhteys->prepare(
                 "INSERT INTO kuva (kuvanimi, julkaisuaika, kayttajanimi, kuvateksti) " .
-                "VALUES ('" . $kuvanimi . "', CURRENT_TIMESTAMP(0), '" .
-                $_SESSION["kayttajanimi"] . "', '" . $kuvateksti . "')");
-        $kysely->execute();
+                "VALUES (?, CURRENT_TIMESTAMP(0), ?, ?)");
+        $kysely->execute(array($kuvanimi, $_SESSION["kayttajanimi"], $kuvateksti));
 
         /*
          * Tehdään:

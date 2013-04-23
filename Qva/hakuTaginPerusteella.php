@@ -14,9 +14,12 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  */
 // Kysellään mitä kuvia löytyy, uutuusjärjestyksessä
 $kysely = $yhteys->prepare(
-        "SELECT kuva.kuvaid FROM kuvantagit, kuva WHERE kuva.kuvaid = kuvantagit.kuvaid AND tagnimi = '" .
-        $_GET['tag'] . "' ORDER BY kuva.julkaisuaika DESC");
-$kysely->execute();
+        "SELECT kuva.kuvaid
+            FROM kuvantagit, kuva
+            WHERE kuva.kuvaid = kuvantagit.kuvaid
+            AND tagnimi = ?
+            ORDER BY kuva.julkaisuaika DESC");
+$kysely->execute(array($_GET['tag']));
 
 echo '<h1>';
 echo 'Tägillä ';

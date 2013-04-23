@@ -15,12 +15,15 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * Kuvan poistaminen
  */
 if ($toiminto === "poistaKuva") {
+    $kysely = $yhteys->prepare("DELETE FROM kuvantagit
+    WHERE kuvaid = ?");
+    $kysely->execute(array($kuvaid));
     $kysely = $yhteys->prepare("DELETE FROM kommentti
-    WHERE kuvaid = " . $kuvaid);
-    $kysely->execute();
+    WHERE kuvaid = ?");
+    $kysely->execute(array($kuvaid));
     $kysely = $yhteys->prepare("DELETE FROM kuva
-    WHERE kuvaid = " . $kuvaid);
-    $kysely->execute();
+    WHERE kuvaid = ?");
+    $kysely->execute(array($kuvaid));
     unlink("kuvat/" . $kuvaid . ".jpg");
     unlink("kuvat/" . $kuvaid . "s" . ".jpg");
     unlink("kuvat/" . $kuvaid . "t" . ".jpg");
@@ -28,9 +31,8 @@ if ($toiminto === "poistaKuva") {
     die();
 }
 // Haetaan kuvan tiedot
-$kysely = $yhteys->prepare("SELECT * FROM kuva WHERE kuvaid = '" .
-        $kuvaid . "'");
-$kysely->execute();
+$kysely = $yhteys->prepare("SELECT * FROM kuva WHERE kuvaid = ?");
+$kysely->execute(array($kuvaid));
 $kuvanTiedot = $kysely->fetch();
 
 /**
@@ -102,9 +104,8 @@ echo '<p class="tags">Tägit: ';
 /**
  * Tägänderit yo
  */
-$kysely = $yhteys->prepare("SELECT tagnimi FROM kuvantagit WHERE kuvaid = " .
-        $kuvaid);
-$kysely->execute();
+$kysely = $yhteys->prepare("SELECT tagnimi FROM kuvantagit WHERE kuvaid = ?");
+$kysely->execute(array($kuvaid));
 
 $i = 0;
 while ($tagit = $kysely->fetch()) {

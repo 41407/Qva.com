@@ -13,8 +13,8 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $kysely = $yhteys->prepare(
         "select kommenttistring as kommentti, kayttajanimi as tunnus, " .
         "julkaisuaika as aika, kommenttiid as id " .
-        "from kommentti where kuvaid=" . $kuvaid . " order by aika desc");
-$kysely->execute();
+        "from kommentti where kuvaid=? order by aika desc");
+$kysely->execute(array($kuvaid));
 
 $i = 0;
 while ($kommentti = $kysely->fetch()) {

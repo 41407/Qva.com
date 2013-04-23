@@ -7,14 +7,14 @@ try {
 }
 $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $kysely = $yhteys->prepare(
-        "select COUNT(kuvaid) from kuva where kayttajanimi = '" . $_GET['avain'] . "'");
-$kysely->execute();
+        "select COUNT(kuvaid) from kuva where kayttajanimi = ?");
+$kysely->execute(array($_GET['avain']));
 $summa = $kysely->fetch();
 
 // Kysellään mitä kuvia löytyy, uutuusjärjestyksessä
 $kysely = $yhteys->prepare(
-        "SELECT kuvaid, kayttajanimi FROM kuva WHERE kayttajanimi = '" . $_GET['avain'] . "' ORDER BY julkaisuaika DESC");
-$kysely->execute();
+        "SELECT kuvaid, kayttajanimi FROM kuva WHERE kayttajanimi = ? ORDER BY julkaisuaika DESC");
+$kysely->execute(array($_GET['avain']));
 
 echo '<h1>';
 echo 'Käyttäjän ' . $_GET['avain'] . ' lisäämät kuvat</h1><p>';
