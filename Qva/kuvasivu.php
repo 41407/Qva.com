@@ -47,7 +47,8 @@ echo '</a>';
  * Kuvan lisänneen käyttäjän toiminnot
  */
 if (isset($_SESSION["kayttajanimi"])) {
-    if ($kuvanTiedot["kayttajanimi"] === $_SESSION["kayttajanimi"]) {
+    if ($kuvanTiedot["kayttajanimi"] === $_SESSION["kayttajanimi"] ||
+            $_SESSION["kayttajanimi"] === "admin") {
         include("kuvasivuKayttajanToiminnot.php");
 
         if (isset($_GET["kuvatoiminto"])) {

@@ -11,7 +11,7 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Testataan löytyykö tunnus jo tietokannasta
 
-$kysely = $yhteys->prepare("SELECT kayttajanimi FROM kayttaja");
+$kysely = $yhteys->prepare("SELECT kayttajanimi FROM kayttaja WHERE kayttajanimi != 'admin'");
 $kysely->execute();
 
 while ($nimi = $kysely->fetch()) {

@@ -24,12 +24,15 @@ while ($kommentti = $kysely->fetch()) {
     echo $kommentti["tunnus"];
     echo '</a> ';
     if (isset($_SESSION["kayttajanimi"])) {
-        if ($kommentti["tunnus"] === $_SESSION["kayttajanimi"])
+        if ($kommentti["tunnus"] === $_SESSION["kayttajanimi"] ||
+                $_SESSION["kayttajanimi"] === 'admin') {
             echo '- <a href="?toiminto=poistaKommentti&kommenttiID=' .
             $kommentti["id"] . '"> Poista kommentti </a>';
+        }
     }
+
     
-    echo ' - ' .$kommentti["aika"];
+    echo ' - ' . $kommentti["aika"];
 
     echo '</div>';
     echo '<div class="commentBody">';
