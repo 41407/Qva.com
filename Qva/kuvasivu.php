@@ -2,8 +2,9 @@
 
 $kuvaid = $_GET["kuvaid"];
 $kuvatiedosto = $kuvaid;
-$toiminto = $_GET["kuvatoiminto"];
-
+if (isset($_GET["kuvatoiminto"])) {
+    $toiminto = $_GET["kuvatoiminto"];
+}
 try {
     $yhteys = new PDO("pgsql:host=localhost;dbname=jiji", "jiji", "argh");
 } catch (PDOException $e) {
@@ -14,7 +15,7 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * Kuvan poistaminen
  */
 if ($toiminto === "poistaKuva") {
-        $kysely = $yhteys->prepare("DELETE FROM kommentti
+    $kysely = $yhteys->prepare("DELETE FROM kommentti
     WHERE kuvaid = " . $kuvaid);
     $kysely->execute();
     $kysely = $yhteys->prepare("DELETE FROM kuva
@@ -45,13 +46,15 @@ echo '</a>';
 /**
  * Kuvan lisänneen käyttäjän toiminnot
  */
-if (isset($_SESSION[kayttajanimi])) {
-    if ($kuvanTiedot[kayttajanimi] === $_SESSION[kayttajanimi]) {
+if (isset($_SESSION["kayttajanimi"])) {
+    if ($kuvanTiedot["kayttajanimi"] === $_SESSION["kayttajanimi"]) {
         include("kuvasivuKayttajanToiminnot.php");
 
-        if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
-            include("kuvaMuokkaus.php");
-            die();
+        if (isset($_GET["kuvatoiminto"])) {
+            if ($_GET["kuvatoiminto"] === "muokkaaKuvaa") {
+                include("kuvaMuokkaus.php");
+                die();
+            }
         }
     }
 }
@@ -114,7 +117,7 @@ while ($tagit = $kysely->fetch()) {
 }
 echo '</p>';
 
-if (isset($_SESSION[kayttajanimi])) {
+if (isset($_SESSION["kayttajanimi"])) {
     include("kuvaKommentoi.php");
 }
 include("kuvanKommentit.php");

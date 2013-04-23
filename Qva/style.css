@@ -80,6 +80,7 @@ div#main {
     width:900px;
     margin-left:-450px;
     left:50%;
+
 }
 
 #main img {
@@ -94,10 +95,10 @@ div#lightbox {
     height:100%;
     background-color: #000;
     text-align:center;
-/*    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center;
-*/
+    /*    background-size:contain;
+        background-repeat:no-repeat;
+        background-position:center;
+    */
 }
 
 #lightbox img {
@@ -114,6 +115,7 @@ div#lightbox {
 
 div.imageframe {
     width: 100%;
+    padding: 0px 0px 0px 0px;
     background-color: #000;
     background-position:center;
     background-repeat:no-repeat;
@@ -121,10 +123,13 @@ div.imageframe {
 }
 
 .photoInfo h1{
-    line-height: 0px;
+    line-height: 27px;
+    margin-top:-20px;
+    padding-right:80px;
 }
 .photoInfo h2{
-    line-height: 0px;
+    margin-top: 9px;
+    line-height:0px;
 }
 .photoInfo p{
     color: #AAA;
@@ -134,7 +139,8 @@ div.imageframe {
 .photoFeatures {
     margin-top: 6px;
     text-align: right;
-    line-height:0px;
+    line-height: 0px;
+    padding-bottom:7px;
 }
 
 .image {
@@ -172,6 +178,14 @@ form input {
     font-size:12px;
 }
 
+div#pagenav {
+    float:left;
+    width: 900px;
+    text-align:center;
+    margin-bottom: 100px;
+    left:300px;
+}
+
 A:link {
     text-decoration: none;
     color: #33ccff;}
@@ -184,4 +198,3 @@ A:active {
 A:hover {
     text-decoration: none;
     color: #FFF;}
-

@@ -20,6 +20,7 @@ $kysely->execute();
 
 if ($kysely->fetch()) {
     header("Location: /qva/?toiminto=tunnuksenLuontiEiOnnistunut");
+    die();
 }
 
 
