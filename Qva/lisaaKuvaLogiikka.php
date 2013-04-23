@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 try {
@@ -21,10 +22,7 @@ $kuvateksti = $_POST["kuvateksti"];
 $sallitutPaatteet = array("jpeg", "jpg", "png");
 $kuvanPaate = end(explode(".", $_FILES["file"]["name"]));
 $paate = strtolower($kuvanPaate);
-if ((($_FILES["file"]["type"] == "image/jpeg")
-        || ($_FILES["file"]["type"] == "image/jpg")
-         || ($_FILES["file"]["type"] == "image/png"))
-        && in_array($paate, $sallitutPaatteet)) {
+if ((($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/png")) && in_array($paate, $sallitutPaatteet)) {
     if ($_FILES["file"]["error"] > 0) {
         echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
     } else {
@@ -50,17 +48,26 @@ if ((($_FILES["file"]["type"] == "image/jpeg")
                 $_SESSION["kayttajanimi"] . "', '" . $kuvateksti . "')");
         $kysely->execute();
 
-        /* 
+        /*
          * Tehdään:
          * 1. Muunnos jpg-muotoon
-         * 2. Thumbnail
-         * 3. Oikeudet luoduille kuville
+         * 2. 900px kuva
+         * 3. Thumbnail
+         * 4. Oikeudet luoduille kuville
+         * 
+         * Joten lopuksi meillä on 3 kuvaa. Esimerkkitapauksessa kuvaid = 83:
+         *  83.jpg  originaali, täysikokoinen kuva joka on muunnettu .jpg:ksi
+         *  83s.jpg 900x900px kokoon downskaalattu kuva
+         *  83t.jpg 275x275px kokoon downskaalattu thumbnail
+         *  
          */
-        shell_exec("convert kuvat/" . $lopullinenTiedostonimi . " " . $id . ".jpg" .
-        " && " .
-        "convert kuvat/" . $lopullinenTiedostonimi . " -resize 275x275^ kuvat/" . $id . "t." . $paate .
-        " && " .
-        "setfacl -m u:www-data:r-- kuvat/" . $lopullinenTiedostonimi . " kuvat/" . $id . "t." . $paate);
+        shell_exec("convert kuvat/" . $lopullinenTiedostonimi . " kuvat/" . $id . ".jpg" .
+                " && " .
+                "convert kuvat/" . $lopullinenTiedostonimi . " -resize 900x900\> kuvat/" . $id . "s.jpg" .
+                " && " .
+                "convert kuvat/" . $lopullinenTiedostonimi . " -resize 275x275^ kuvat/" . $id . "t.jpg" .
+                " && " .
+                "setfacl -m u:www-data:r-- kuvat/" . $lopullinenTiedostonimi . " kuvat/" . $id . "t.jpg" . " kuvat/" . $id . "s.jpg");
         header("Location: /qva/?toiminto=kuvanLisaysOnnistui");
         die();
     }

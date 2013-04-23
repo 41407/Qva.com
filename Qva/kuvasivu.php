@@ -1,7 +1,7 @@
 <?php
 
 $kuvaid = $_GET["kuvaid"];
-$kuvatiedosto = $kuvaid . ".jpg";
+$kuvatiedosto = $kuvaid;
 $toiminto = $_GET["kuvatoiminto"];
 
 try {
@@ -14,10 +14,14 @@ $yhteys->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  * Kuvan poistaminen
  */
 if ($toiminto === "poistaKuva") {
+        $kysely = $yhteys->prepare("DELETE FROM kommentti
+    WHERE kuvaid = " . $kuvaid);
+    $kysely->execute();
     $kysely = $yhteys->prepare("DELETE FROM kuva
     WHERE kuvaid = " . $kuvaid);
     $kysely->execute();
     unlink("kuvat/" . $kuvaid . ".jpg");
+    unlink("kuvat/" . $kuvaid . "s" . ".jpg");
     unlink("kuvat/" . $kuvaid . "t" . ".jpg");
     include("kuvaPoistettu.php");
     die();
@@ -32,9 +36,9 @@ $kuvanTiedot = $kysely->fetch();
  * Rintataan itse kuva
  */
 // Kokeellinen lightbox featuuri
-echo '<a href="kuva.php?k=' . $kuvatiedosto . '">';
+echo '<a href="kuva.php?k=' . $kuvatiedosto . '.jpg">';
 echo '<div class="imageframe">';
-echo '<img src="kuvat/' . $kuvatiedosto . '">';
+echo '<img src="kuvat/' . $kuvatiedosto . 's.jpg">';
 echo '</div>';
 echo '</a>';
 
