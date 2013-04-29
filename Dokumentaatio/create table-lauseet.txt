@@ -25,10 +25,3 @@ CREATE TABLE kommentti (
  julkaisuaika timestamp(0) not null,
  foreign key(kayttajaNimi) references kayttaja(kayttajaNimi)
 );
-
-CREATE TABLE kuvanKommentit (
- kommenttiID int,
- kuvaID int,
- foreign key(kommenttiID) references kommentti (kommenttiID),
- foreign key(kuvaID) references kuva(kuvaID)
-);

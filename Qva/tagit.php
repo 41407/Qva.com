@@ -16,7 +16,7 @@
      */
     $abcString = "";
     for ($i = 0; $i < 26; $i++) {
-        $char = chr($i + 97);
+        $char = chr($i + 97); // koska ascii
         $abcString = $abcString . $char;
     }
     $abcString = $abcString . "å" . "ä" . "ö";
